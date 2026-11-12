@@ -18,19 +18,23 @@ on-hub schedules.
 
 ### Marketplace (recommended)
 
-UM Smart USB Hub is available in the Home Assistant Marketplace (Home Assistant 2026.11 or newer).
+UM Smart USB Hub isn't listed in the Home Assistant Marketplace yet, so you add this repository to it as a custom repository first (Home Assistant 2026.11 or newer).
 
-1. Go to **Settings** > **Marketplace**
-2. Search for **UM Smart USB Hub** and open it
-3. Select **Install**, check the version, and select **Install** again
-
-Or click the button to open UM Smart USB Hub directly in the Marketplace:
+Click the button to open this repository in the Marketplace, and confirm when Home Assistant asks to add it as a custom repository:
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=jonnybergdahl&category=Integration&repository=HomeAssistant_UM_SmartUsbHub_Integration)
 
+Or add it by hand:
+
+1. Go to **Settings** > **Marketplace**
+2. Open the menu (⋮) in the top right corner and select **Custom repositories**
+3. Enter `https://github.com/jonnybergdahl/HomeAssistant_UM_SmartUsbHub_Integration` as the repository, select **Integration** as the type, and select **Add**
+4. Search for **UM Smart USB Hub** and open it
+5. Select **Install**, check the version, and select **Install** again
+
 No restart is needed. Home Assistant goes straight to the setup flow described below.
 
-> On Home Assistant 2026.10, install UM Smart USB Hub through HACS instead: search for **UM Smart USB Hub**, click **Download**, then restart Home Assistant. Older versions aren't supported.
+> On Home Assistant 2026.10, use HACS instead: in HACS, open the menu (⋮) > **Custom repositories**, add the repository URL above with the type **Integration**, then search for **UM Smart USB Hub**, click **Download**, and restart Home Assistant. Older versions aren't supported.
 
 ### Manual
 
