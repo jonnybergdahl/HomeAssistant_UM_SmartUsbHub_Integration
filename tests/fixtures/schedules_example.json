@@ -1,0 +1,15 @@
+{
+    "ports": [
+        [],
+        [],
+        [],
+        [],
+        [
+            {"days": 127, "time": "08:00", "on": true, "mode": 1, "every": 30, "allday": true, "dur": 540, "until": "17:00", "once": false, "enabled": true, "invalid": false}
+        ],
+        [
+            {"days": 62, "time": "07:20", "on": true, "mode": 2, "every": 30, "allday": true, "dur": 60, "until": "17:00", "once": false, "enabled": true, "invalid": false},
+            {"days": 8, "time": "22:00", "on": false, "mode": 0, "every": 30, "allday": true, "dur": 60, "until": "17:00", "once": false, "enabled": true, "invalid": true}
+        ]
+    ]
+}

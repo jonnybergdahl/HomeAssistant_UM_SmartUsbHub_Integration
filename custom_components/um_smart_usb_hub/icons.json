@@ -1,0 +1,140 @@
+{
+  "entity": {
+    "binary_sensor": {
+      "main_5v": {
+        "default": "mdi:power-plug",
+        "state": {
+          "off": "mdi:power-plug-off"
+        }
+      },
+      "upstream_5v": {
+        "default": "mdi:usb",
+        "state": {
+          "off": "mdi:usb-flash-drive-outline"
+        }
+      },
+      "clock_synced": {
+        "default": "mdi:clock-check-outline",
+        "state": {
+          "off": "mdi:clock-alert-outline"
+        }
+      },
+      "connected": {
+        "default": "mdi:usb-port"
+      },
+      "overcurrent": {
+        "default": "mdi:flash-alert"
+      }
+    },
+    "button": {
+      "all_ports_on": {
+        "default": "mdi:power-plug-battery"
+      },
+      "all_ports_off": {
+        "default": "mdi:power-plug-off"
+      },
+      "detect_location": {
+        "default": "mdi:map-marker-radius"
+      },
+      "power_cycle": {
+        "default": "mdi:restart"
+      }
+    },
+    "number": {
+      "led_brightness": {
+        "default": "mdi:brightness-6"
+      },
+      "utc_offset": {
+        "default": "mdi:map-clock"
+      }
+    },
+    "select": {
+      "power_mode": {
+        "default": "mdi:power-settings",
+        "state": {
+          "manual": "mdi:hand-back-right",
+          "boot": "mdi:power",
+          "connect": "mdi:usb-port"
+        }
+      },
+      "averaging": {
+        "default": "mdi:chart-bell-curve"
+      }
+    },
+    "sensor": {
+      "ports_powered": {
+        "default": "mdi:usb-port"
+      },
+      "ports_occupied": {
+        "default": "mdi:usb"
+      },
+      "ports_faulted": {
+        "default": "mdi:flash-alert"
+      },
+      "reset_reason": {
+        "default": "mdi:restart-alert"
+      },
+      "ip_address": {
+        "default": "mdi:ip-network"
+      },
+      "ssid": {
+        "default": "mdi:wifi"
+      },
+      "heap_free": {
+        "default": "mdi:memory"
+      },
+      "last_restart": {
+        "default": "mdi:restart"
+      },
+      "led_state": {
+        "default": "mdi:led-on",
+        "state": {
+          "off": "mdi:led-off",
+          "fault": "mdi:alert-circle"
+        }
+      },
+      "schedule_rules": {
+        "default": "mdi:calendar-clock"
+      },
+      "next_schedule": {
+        "default": "mdi:calendar-clock"
+      }
+    },
+    "switch": {
+      "port_power": {
+        "default": "mdi:usb-port"
+      },
+      "leds": {
+        "default": "mdi:led-on",
+        "state": {
+          "off": "mdi:led-off"
+        }
+      },
+      "esphome_api": {
+        "default": "mdi:home-assistant"
+      }
+    },
+    "text": {
+      "port_name": {
+        "default": "mdi:rename"
+      }
+    }
+  },
+  "services": {
+    "power_cycle": {
+      "service": "mdi:restart"
+    },
+    "get_schedule": {
+      "service": "mdi:calendar-search"
+    },
+    "set_schedule": {
+      "service": "mdi:calendar-edit"
+    },
+    "add_schedule_entry": {
+      "service": "mdi:calendar-plus"
+    },
+    "clear_schedule": {
+      "service": "mdi:calendar-remove"
+    }
+  }
+}

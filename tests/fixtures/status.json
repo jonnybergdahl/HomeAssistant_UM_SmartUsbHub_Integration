@@ -1,0 +1,127 @@
+{
+    "name": "Smart USB Hub",
+    "fw": "2.2.0",
+    "rst": "USB",
+    "theme": "dark",
+    "ui": {
+        "averaging": 0,
+        "mini_metric": [
+            "ma",
+            "ma",
+            "ma",
+            "ma",
+            "ma",
+            "ma"
+        ],
+        "graph_metric": "volts,ma,mw",
+        "graph_voltage_zero": false,
+        "mini_graphs": false,
+        "graph_window": 10,
+        "graph_scale": "linear",
+        "graph_y_lock": false
+    },
+    "reverse_order": true,
+    "time_24h": true,
+    "ip": "192.168.1.100",
+    "uptime_s": 1291,
+    "heap": 207900,
+    "maxblk": 163828,
+    "main5v": true,
+    "upstream5v": true,
+    "temp": {
+        "valid": true,
+        "c": 32.4,
+        "h": 21.5
+    },
+    "clock": {
+        "synced": true,
+        "time": "18:57",
+        "date": "Thu 12 Nov 2026",
+        "wday": 4,
+        "secs": 68271
+    },
+    "ports": [
+        {
+            "n": 1,
+            "enabled": true,
+            "occupied": true,
+            "fault": false,
+            "state": "green",
+            "name": "",
+            "mon": true,
+            "v": 4.64,
+            "ma": 77.6,
+            "mw": 360.1,
+            "sched": 0
+        },
+        {
+            "n": 2,
+            "enabled": false,
+            "occupied": false,
+            "fault": false,
+            "state": "off",
+            "name": "",
+            "mon": true,
+            "v": 0.0,
+            "ma": 0.0,
+            "mw": 0.0,
+            "sched": 0
+        },
+        {
+            "n": 3,
+            "enabled": true,
+            "occupied": true,
+            "fault": false,
+            "state": "green",
+            "name": "",
+            "mon": true,
+            "v": 4.648,
+            "ma": 80.8,
+            "mw": 375.6,
+            "sched": 0
+        },
+        {
+            "n": 4,
+            "enabled": false,
+            "occupied": false,
+            "fault": false,
+            "state": "off",
+            "name": "",
+            "mon": true,
+            "v": 0.0,
+            "ma": 0.0,
+            "mw": 0.0,
+            "sched": 0
+        },
+        {
+            "n": 5,
+            "enabled": false,
+            "occupied": false,
+            "fault": false,
+            "state": "off",
+            "name": "",
+            "mon": true,
+            "v": 0.0,
+            "ma": 0.0,
+            "mw": 0.0,
+            "sched": 0
+        },
+        {
+            "n": 6,
+            "enabled": false,
+            "occupied": false,
+            "fault": false,
+            "state": "off",
+            "name": "",
+            "mon": true,
+            "v": 0.0,
+            "ma": 0.0,
+            "mw": 0.0,
+            "sched": 0
+        }
+    ],
+    "total": {
+        "ma": 158.4,
+        "mw": 735.6
+    }
+}

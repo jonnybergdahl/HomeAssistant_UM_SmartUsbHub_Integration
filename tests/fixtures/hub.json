@@ -1,0 +1,49 @@
+{
+    "name": "Smart USB Hub",
+    "fw": "2.2.0",
+    "uptime_s": 1291,
+    "reset_reason": "USB",
+    "power": {
+        "main_5v": true,
+        "upstream_5v": true,
+        "total_ma": 225.2,
+        "total_mw": 1013.8
+    },
+    "sensors": {
+        "temp_c": 32.4,
+        "humidity": 21.5,
+        "valid": true
+    },
+    "clock": {
+        "synced": true,
+        "iso": "2026-11-12T18:57:51+01:00",
+        "time": "18:57",
+        "date": "Thu 12 Nov 2026",
+        "wday": 4,
+        "secs": 68271,
+        "utc_offset": 1
+    },
+    "network": {
+        "connected": true,
+        "ip": "192.168.1.100",
+        "ssid": "MyNetwork",
+        "rssi": -37,
+        "hostname": "usb-hub"
+    },
+    "devices": {
+        "expander": true,
+        "ina_1": true,
+        "ina_2": true,
+        "aht20": true
+    },
+    "memory": {
+        "heap_free": 207692,
+        "heap_max_block": 163828
+    },
+    "ports_summary": {
+        "count": 6,
+        "powered": 2,
+        "occupied": 2,
+        "faulted": 0
+    }
+}

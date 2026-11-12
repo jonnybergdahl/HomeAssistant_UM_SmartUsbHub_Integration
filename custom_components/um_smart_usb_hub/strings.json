@@ -1,0 +1,316 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "description": "Set up a UM Smart USB Hub using its REST API.",
+        "data": {
+          "host": "Host"
+        },
+        "data_description": {
+          "host": "Host name or IP address of the hub, for example usb-hub.local or 192.168.1.50. Use the IP address if Home Assistant can't resolve .local names."
+        }
+      },
+      "zeroconf_confirm": {
+        "description": "Do you want to add the hub {name} at {host}?"
+      },
+      "reconfigure": {
+        "description": "Change the address of the hub.",
+        "data": {
+          "host": "Host"
+        },
+        "data_description": {
+          "host": "Host name or IP address of the hub, for example usb-hub.local or 192.168.1.50. Use the IP address if Home Assistant can't resolve .local names."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect",
+      "not_a_hub": "The device answered, but it doesn't look like a UM Smart USB Hub.",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "Device is already configured",
+      "reconfigure_successful": "Re-configuration was successful",
+      "wrong_device": "That address belongs to a different hub.",
+      "not_ipv4_address": "Only IPv4 addresses are supported.",
+      "cannot_connect": "Failed to connect",
+      "not_a_hub": "The device answered, but it doesn't look like a UM Smart USB Hub.",
+      "unknown": "Unexpected error"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "scan_interval": "Polling interval"
+        },
+        "data_description": {
+          "scan_interval": "How often port and hub readings are fetched, in seconds."
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "main_5v": {
+        "name": "Main 5V"
+      },
+      "upstream_5v": {
+        "name": "Upstream 5V"
+      },
+      "port_fault": {
+        "name": "Port fault"
+      },
+      "clock_synced": {
+        "name": "Clock synced"
+      },
+      "hardware_problem": {
+        "name": "Hardware problem"
+      },
+      "connected": {
+        "name": "Device connected"
+      },
+      "overcurrent": {
+        "name": "Over-current"
+      }
+    },
+    "button": {
+      "all_ports_on": {
+        "name": "All ports on"
+      },
+      "all_ports_off": {
+        "name": "All ports off"
+      },
+      "detect_location": {
+        "name": "Detect location"
+      },
+      "power_cycle": {
+        "name": "Power cycle"
+      }
+    },
+    "number": {
+      "led_brightness": {
+        "name": "LED brightness"
+      },
+      "utc_offset": {
+        "name": "UTC offset"
+      }
+    },
+    "select": {
+      "power_mode": {
+        "name": "Power mode",
+        "state": {
+          "manual": "Manual",
+          "boot": "On at boot",
+          "connect": "On when a device is connected"
+        }
+      },
+      "averaging": {
+        "name": "Measurement averaging",
+        "state": {
+          "0": "Off",
+          "2": "2 samples",
+          "4": "4 samples",
+          "8": "8 samples",
+          "16": "16 samples"
+        }
+      }
+    },
+    "sensor": {
+      "total_current": {
+        "name": "Total current"
+      },
+      "total_power": {
+        "name": "Total power"
+      },
+      "ports_powered": {
+        "name": "Ports powered"
+      },
+      "ports_occupied": {
+        "name": "Ports occupied"
+      },
+      "ports_faulted": {
+        "name": "Ports faulted"
+      },
+      "reset_reason": {
+        "name": "Reset reason",
+        "state": {
+          "poweron": "Power on",
+          "sw": "Software restart",
+          "usb": "USB reset",
+          "panic": "Panic",
+          "task_wdt": "Task watchdog",
+          "int_wdt": "Interrupt watchdog",
+          "wdt": "Watchdog",
+          "brownout": "Brownout",
+          "pwr_glitch": "Power glitch",
+          "ext": "External reset",
+          "deepsleep": "Deep sleep",
+          "jtag": "JTAG",
+          "efuse": "eFuse",
+          "cpu_lockup": "CPU lockup",
+          "sdio": "SDIO",
+          "unknown": "Unknown"
+        }
+      },
+      "wifi_signal": {
+        "name": "WiFi signal"
+      },
+      "ip_address": {
+        "name": "IP address"
+      },
+      "ssid": {
+        "name": "SSID"
+      },
+      "heap_free": {
+        "name": "Free memory"
+      },
+      "last_restart": {
+        "name": "Last restart"
+      },
+      "led_state": {
+        "name": "LED state",
+        "state": {
+          "off": "Off",
+          "blue": "Device present, power off",
+          "green": "Powered, device present",
+          "pulse": "Powered, no device",
+          "pink": "No main 5V, device present",
+          "pinkpulse": "No main 5V, no device",
+          "fault": "Over-current"
+        }
+      },
+      "schedule_rules": {
+        "name": "Active schedule rules"
+      },
+      "next_schedule": {
+        "name": "Next scheduled action"
+      }
+    },
+    "switch": {
+      "leds": {
+        "name": "LEDs"
+      },
+      "esphome_api": {
+        "name": "ESPHome API"
+      }
+    },
+    "text": {
+      "port_name": {
+        "name": "Name"
+      }
+    }
+  },
+  "exceptions": {
+    "update_failed": {
+      "message": "Error fetching data from the hub: {error}"
+    },
+    "communication_error": {
+      "message": "Error communicating with the hub: {error}"
+    },
+    "unexpected_settings": {
+      "message": "The hub returned unexpected settings data."
+    },
+    "setting_not_applied": {
+      "message": "The hub did not apply the change to {setting}."
+    },
+    "schedule_rejected": {
+      "message": "The hub rejected the new schedule for port {port}; nothing was saved."
+    }
+  },
+  "selector": {
+    "weekday": {
+      "options": {
+        "sun": "Sunday",
+        "mon": "Monday",
+        "tue": "Tuesday",
+        "wed": "Wednesday",
+        "thu": "Thursday",
+        "fri": "Friday",
+        "sat": "Saturday"
+      }
+    },
+    "schedule_mode": {
+      "options": {
+        "off": "Off at time",
+        "on": "On at time",
+        "on_for": "On for duration",
+        "on_until": "On until time",
+        "on_every": "Repeat"
+      }
+    }
+  },
+  "services": {
+    "power_cycle": {
+      "name": "Power cycle",
+      "description": "Switches a port off, waits, and switches it back on.",
+      "fields": {
+        "off_time": {
+          "name": "Off time",
+          "description": "How long the port stays off, in seconds."
+        }
+      }
+    },
+    "get_schedule": {
+      "name": "Get schedule",
+      "description": "Returns the schedule stored on the hub for a port."
+    },
+    "clear_schedule": {
+      "name": "Clear schedule",
+      "description": "Removes all schedule rules from a port."
+    },
+    "set_schedule": {
+      "name": "Set schedule",
+      "description": "Replaces a port's schedule on the hub. The other ports are left unchanged.",
+      "fields": {
+        "entries": {
+          "name": "Entries",
+          "description": "List of rules. Each has days, time and mode, and optionally duration, until, every, all_day, once and enabled."
+        }
+      }
+    },
+    "add_schedule_entry": {
+      "name": "Add schedule entry",
+      "description": "Adds one rule to a port's schedule on the hub.",
+      "fields": {
+        "days": {
+          "name": "Days",
+          "description": "Weekdays the rule applies to."
+        },
+        "time": {
+          "name": "Time",
+          "description": "When the rule fires (hub local time). For a windowed repeating rule, the window start."
+        },
+        "mode": {
+          "name": "Mode",
+          "description": "What the rule does."
+        },
+        "duration": {
+          "name": "Duration",
+          "description": "Minutes on, for 'On for' and the pulse length of 'Repeat'."
+        },
+        "until": {
+          "name": "Until",
+          "description": "End time for 'On until', or the window end of a 'Repeat' rule that isn't all day."
+        },
+        "every": {
+          "name": "Every",
+          "description": "Repeat interval in minutes for 'Repeat' (minimum 30)."
+        },
+        "all_day": {
+          "name": "All day",
+          "description": "For 'Repeat': repeat all day, or only between Time and Until."
+        },
+        "once": {
+          "name": "Once",
+          "description": "Fire at the next occurrence, then disable the rule."
+        },
+        "enabled": {
+          "name": "Enabled",
+          "description": "Disabled rules are kept but ignored."
+        }
+      }
+    }
+  }
+}

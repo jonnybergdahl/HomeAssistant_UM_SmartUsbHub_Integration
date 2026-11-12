@@ -1,0 +1,115 @@
+power_cycle:
+  target:
+    entity:
+      integration: um_smart_usb_hub
+      domain: switch
+      device_class: outlet
+  fields:
+    off_time:
+      default: 5
+      selector:
+        number:
+          min: 0.5
+          max: 300
+          step: 0.5
+          unit_of_measurement: s
+          mode: box
+
+get_schedule:
+  target:
+    entity:
+      integration: um_smart_usb_hub
+      domain: switch
+      device_class: outlet
+
+clear_schedule:
+  target:
+    entity:
+      integration: um_smart_usb_hub
+      domain: switch
+      device_class: outlet
+
+set_schedule:
+  target:
+    entity:
+      integration: um_smart_usb_hub
+      domain: switch
+      device_class: outlet
+  fields:
+    entries:
+      required: true
+      example: >-
+        [{"days": ["mon", "tue", "wed", "thu", "fri"], "time": "07:30", "mode": "on_until", "until": "17:00"}]
+      selector:
+        object:
+
+add_schedule_entry:
+  target:
+    entity:
+      integration: um_smart_usb_hub
+      domain: switch
+      device_class: outlet
+  fields:
+    days:
+      required: true
+      example: '["mon", "tue", "wed", "thu", "fri"]'
+      selector:
+        select:
+          multiple: true
+          translation_key: weekday
+          options:
+            - sun
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+            - sat
+    time:
+      required: true
+      example: "07:30"
+      selector:
+        time:
+    mode:
+      required: true
+      selector:
+        select:
+          translation_key: schedule_mode
+          options:
+            - "off"
+            - "on"
+            - on_for
+            - on_until
+            - on_every
+    duration:
+      default: 60
+      selector:
+        number:
+          min: 1
+          max: 1439
+          unit_of_measurement: min
+          mode: box
+    until:
+      default: "17:00"
+      selector:
+        time:
+    every:
+      default: 30
+      selector:
+        number:
+          min: 30
+          max: 1440
+          unit_of_measurement: min
+          mode: box
+    all_day:
+      default: true
+      selector:
+        boolean:
+    once:
+      default: false
+      selector:
+        boolean:
+    enabled:
+      default: true
+      selector:
+        boolean:

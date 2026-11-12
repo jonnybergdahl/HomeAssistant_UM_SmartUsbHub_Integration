@@ -1,0 +1,19 @@
+{
+  "domain": "um_smart_usb_hub",
+  "name": "UM Smart USB Hub",
+  "codeowners": ["@jonnybergdahl"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/jonnybergdahl/HomeAssistant_UM_SmartUsbHub_Integration",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/jonnybergdahl/HomeAssistant_UM_SmartUsbHub_Integration/issues",
+  "requirements": [],
+  "version": "0.1.0",
+  "zeroconf": [
+    {
+      "type": "_http._tcp.local.",
+      "name": "usb-hub*"
+    }
+  ]
+}

@@ -1,0 +1,217 @@
+{
+  "groups": [
+    {
+      "fields": [
+        {
+          "key": "device_name",
+          "label": "Device name",
+          "type": "string"
+        },
+        {
+          "help": "Reach the hub at <hostname>.local. Takes effect after a restart.",
+          "key": "hostname",
+          "label": "Hostname",
+          "type": "string"
+        }
+      ],
+      "label": "Device",
+      "name": "device",
+      "values": {
+        "device_name": "Smart USB Hub",
+        "hostname": "usb-hub"
+      }
+    },
+    {
+      "fields": [
+        {
+          "key": "ssid",
+          "label": "SSID",
+          "type": "string"
+        },
+        {
+          "key": "password",
+          "label": "Password",
+          "type": "string"
+        },
+        {
+          "help": "Off = use the static address below. DNS goes to the gateway.",
+          "key": "dhcp",
+          "label": "DHCP",
+          "type": "bool"
+        },
+        {
+          "key": "ip",
+          "label": "Static IP",
+          "type": "string"
+        },
+        {
+          "key": "gateway",
+          "label": "Gateway",
+          "type": "string"
+        },
+        {
+          "key": "subnet",
+          "label": "Subnet mask",
+          "type": "string"
+        }
+      ],
+      "label": "WiFi",
+      "name": "wifi",
+      "values": {
+        "ssid": "MyNetwork",
+        "password": "REDACTED",
+        "dhcp": true,
+        "ip": "",
+        "gateway": "",
+        "subnet": ""
+      }
+    },
+    {
+      "fields": [
+        {
+          "key": "city",
+          "label": "City",
+          "type": "string"
+        },
+        {
+          "key": "country",
+          "label": "Country",
+          "type": "string"
+        },
+        {
+          "key": "utc_offset",
+          "label": "UTC offset",
+          "max": 14,
+          "min": -12,
+          "step": 1,
+          "type": "int"
+        },
+        {
+          "key": "ntp_server",
+          "label": "NTP server",
+          "type": "string"
+        },
+        {
+          "help": "Off shows the time as 12 hour with AM/PM",
+          "key": "time_24h",
+          "label": "Show time 24 hour",
+          "type": "bool"
+        }
+      ],
+      "label": "Location & Time",
+      "name": "location",
+      "values": {
+        "city": "Melbourne",
+        "country": "AU",
+        "ntp_server": "pool.ntp.org",
+        "time_24h": true,
+        "utc_offset": 1
+      }
+    },
+    {
+      "fields": [
+        {
+          "key": "enabled",
+          "label": "Enabled",
+          "type": "bool"
+        },
+        {
+          "key": "brightness",
+          "label": "Brightness",
+          "max": 255,
+          "min": 0,
+          "step": 5,
+          "type": "int"
+        }
+      ],
+      "label": "LEDs",
+      "name": "leds",
+      "values": {
+        "brightness": 50,
+        "enabled": true
+      }
+    },
+    {
+      "fields": [
+        {
+          "help": "Ports switched on at startup",
+          "key": "power_mode",
+          "label": "Power on boot",
+          "type": "port_bools",
+          "value": "boot"
+        },
+        {
+          "help": "On when a device is plugged in, off when unplugged",
+          "key": "power_mode",
+          "label": "Auto power on connect",
+          "type": "port_bools",
+          "value": "connect"
+        },
+        {
+          "help": "Show the ports 1 to 6 from left to right on this page",
+          "key": "reverse_order",
+          "label": "Reverse port order",
+          "type": "bool"
+        }
+      ],
+      "label": "Ports",
+      "name": "ports",
+      "values": {
+        "names": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "power_mode": [
+          "connect",
+          "manual",
+          "connect",
+          "manual",
+          "manual",
+          "manual"
+        ],
+        "reverse_order": true
+      }
+    },
+    {
+      "fields": [
+        {
+          "help": "Lets Home Assistant find and control the hub with the ESPHome integration.",
+          "key": "enabled",
+          "label": "ESPHome API",
+          "type": "bool"
+        }
+      ],
+      "label": "Home Assistant",
+      "name": "esphome",
+      "values": {
+        "enabled": true
+      }
+    },
+    {
+      "fields": [],
+      "label": "Profiler",
+      "name": "profiler",
+      "values": {
+        "averaging": 0,
+        "graph_metric": "volts,ma,mw",
+        "graph_scale": "linear",
+        "graph_voltage_zero": false,
+        "graph_window": 10,
+        "graph_y_lock": false,
+        "mini_graphs": false,
+        "mini_metric": [
+          "ma",
+          "ma",
+          "ma",
+          "ma",
+          "ma",
+          "ma"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+    "n": 1,
+    "enabled": true,
+    "occupied": true,
+    "fault": false,
+    "state": "green",
+    "name": "",
+    "monitor": true,
+    "volts": 4.648,
+    "ma": 78.0,
+    "mw": 362.5,
+    "power_mode": "connect",
+    "schedule": {
+        "count": 0,
+        "next": null,
+        "entries": []
+    }
+}

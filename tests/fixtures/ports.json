@@ -1,0 +1,100 @@
+{
+    "ports": [
+        {
+            "n": 1,
+            "enabled": true,
+            "occupied": true,
+            "fault": false,
+            "state": "green",
+            "name": "",
+            "monitor": true,
+            "volts": 4.64,
+            "ma": 77.6,
+            "mw": 360.1,
+            "schedule": {
+                "count": 0,
+                "next": null
+            }
+        },
+        {
+            "n": 2,
+            "enabled": false,
+            "occupied": false,
+            "fault": false,
+            "state": "off",
+            "name": "",
+            "monitor": true,
+            "volts": 0.0,
+            "ma": 0.0,
+            "mw": 0.0,
+            "schedule": {
+                "count": 0,
+                "next": null
+            }
+        },
+        {
+            "n": 3,
+            "enabled": true,
+            "occupied": true,
+            "fault": false,
+            "state": "green",
+            "name": "",
+            "monitor": true,
+            "volts": 4.632,
+            "ma": 81.2,
+            "mw": 376.1,
+            "schedule": {
+                "count": 0,
+                "next": null
+            }
+        },
+        {
+            "n": 4,
+            "enabled": false,
+            "occupied": false,
+            "fault": false,
+            "state": "off",
+            "name": "",
+            "monitor": true,
+            "volts": 0.0,
+            "ma": 0.0,
+            "mw": 0.0,
+            "schedule": {
+                "count": 0,
+                "next": null
+            }
+        },
+        {
+            "n": 5,
+            "enabled": false,
+            "occupied": false,
+            "fault": false,
+            "state": "off",
+            "name": "",
+            "monitor": true,
+            "volts": 0.0,
+            "ma": 0.0,
+            "mw": 0.0,
+            "schedule": {
+                "count": 0,
+                "next": null
+            }
+        },
+        {
+            "n": 6,
+            "enabled": false,
+            "occupied": false,
+            "fault": false,
+            "state": "off",
+            "name": "",
+            "monitor": true,
+            "volts": 0.0,
+            "ma": 0.0,
+            "mw": 0.0,
+            "schedule": {
+                "count": 0,
+                "next": null
+            }
+        }
+    ]
+}
