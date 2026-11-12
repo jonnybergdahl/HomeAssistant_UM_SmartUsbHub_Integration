@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 from ipaddress import ip_address
+import json
+from pathlib import Path
 
 from homeassistant.config_entries import SOURCE_USER, SOURCE_ZEROCONF
 from homeassistant.const import CONF_HOST
@@ -138,3 +140,42 @@ async def test_options(hass: HomeAssistant, setup_integration: MockConfigEntry) 
     )
     assert result["type"] is FlowResultType.CREATE_ENTRY
     assert setup_integration.options == {CONF_SCAN_INTERVAL: 10}
+
+
+async def test_zeroconf_renamed_hub_by_txt_records(
+    hass: HomeAssistant, aioclient_mock: AiohttpClientMocker
+) -> None:
+    """A renamed hub is found through its vendor/model TXT records."""
+    hub = load("hub")
+    hub["network"]["hostname"] = "lab-hub"
+    aioclient_mock.get(f"{BASE}/hub", json=hub)
+    info = ZeroconfServiceInfo(
+        ip_address=ip_address(HOST),
+        ip_addresses=[ip_address(HOST)],
+        hostname="lab-hub.local.",
+        name="lab-hub._http._tcp.local.",
+        port=80,
+        type="_http._tcp.local.",
+        properties={"vendor": "unexpectedmaker", "model": "smart-usb-hub"},
+    )
+    result = await hass.config_entries.flow.async_init(
+        DOMAIN, context={"source": SOURCE_ZEROCONF}, data=info
+    )
+    assert result["step_id"] == "zeroconf_confirm"
+    result = await hass.config_entries.flow.async_configure(result["flow_id"], {})
+    assert result["type"] is FlowResultType.CREATE_ENTRY
+    assert result["result"].unique_id == "lab-hub"
+
+
+def test_manifest_matches_txt_records() -> None:
+    """The manifest discovers hubs by TXT records, whatever their name."""
+    manifest = json.loads(
+        (
+            Path(__file__).parents[1]
+            / "custom_components/um_smart_usb_hub/manifest.json"
+        ).read_text()
+    )
+    assert {
+        "type": "_http._tcp.local.",
+        "properties": {"vendor": "unexpectedmaker", "model": "smart-usb-hub"},
+    } in manifest["zeroconf"]

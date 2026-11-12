@@ -43,7 +43,9 @@ No restart is needed. Home Assistant goes straight to the setup flow described b
 
 ## Setup
 
-A hub with its default host name (`usb-hub`) is discovered automatically and shows up under **Settings** > **Devices & services** as a discovered device. Select **Add** to set it up.
+The hub is discovered automatically and shows up under **Settings** > **Devices & services** as a discovered device. Select **Add** to set it up.
+
+> Discovery relies on the hub's firmware advertising `vendor` and `model` mDNS TXT records. With older firmware, only hubs that still use the default host name `usb-hub` are discovered; set the others up as below.
 
 Otherwise, click the button to add a UM Smart USB Hub to Home Assistant.
 
