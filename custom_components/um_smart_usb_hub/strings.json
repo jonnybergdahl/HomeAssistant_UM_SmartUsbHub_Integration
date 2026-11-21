@@ -115,6 +115,42 @@
           "8": "8 samples",
           "16": "16 samples"
         }
+      },
+      "button_press": {
+        "name": "User button single press",
+        "state": {
+          "none": "Do nothing",
+          "toggle_ports": "Toggle power state of each port",
+          "all_on": "All ports on",
+          "all_off": "All ports off",
+          "cycle_ports": "Power-cycle powered ports",
+          "toggle_leds": "Turn port LEDs on / off",
+          "toggle_s3_usb": "Connect / disconnect ESP32-S3 USB"
+        }
+      },
+      "button_double_press": {
+        "name": "User button double press",
+        "state": {
+          "none": "Do nothing",
+          "toggle_ports": "Toggle power state of each port",
+          "all_on": "All ports on",
+          "all_off": "All ports off",
+          "cycle_ports": "Power-cycle powered ports",
+          "toggle_leds": "Turn port LEDs on / off",
+          "toggle_s3_usb": "Connect / disconnect ESP32-S3 USB"
+        }
+      },
+      "button_long_press": {
+        "name": "User button long press",
+        "state": {
+          "none": "Do nothing",
+          "toggle_ports": "Toggle power state of each port",
+          "all_on": "All ports on",
+          "all_off": "All ports off",
+          "cycle_ports": "Power-cycle powered ports",
+          "toggle_leds": "Turn port LEDs on / off",
+          "toggle_s3_usb": "Connect / disconnect ESP32-S3 USB"
+        }
       }
     },
     "sensor": {
@@ -194,6 +230,12 @@
       },
       "esphome_api": {
         "name": "ESPHome API"
+      },
+      "s3_usb": {
+        "name": "ESP32-S3 USB"
+      },
+      "s3_usb_disconnect_on_boot": {
+        "name": "Disconnect ESP32-S3 USB on boot"
       }
     },
     "text": {

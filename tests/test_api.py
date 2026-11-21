@@ -20,11 +20,12 @@ from .conftest import load
 
 def test_parse_hub() -> None:
     hub = HubInfo.from_dict(load("hub"))
-    assert hub.fw == "2.2.0"
+    assert hub.fw == "2.3.0"
     assert hub.hostname == "usb-hub"
     assert hub.main_5v is True
-    assert hub.ports_powered == 2
-    assert hub.mac is None
+    assert hub.ports_powered == 0
+    assert hub.mac == "aa:bb:cc:dd:ee:ff"
+    assert hub.s3_usb_connected is True
     assert hub.devices == {
         "expander": True,
         "ina_1": True,
@@ -33,10 +34,13 @@ def test_parse_hub() -> None:
     }
 
 
-def test_parse_hub_with_mac() -> None:
+def test_parse_hub_before_2_3_0() -> None:
     data = load("hub")
-    data["mac"] = "98:A3:16:C8:D3:24"
-    assert HubInfo.from_dict(data).mac == "98:a3:16:c8:d3:24"
+    del data["network"]["mac"]
+    del data["s3_usb_connected"]
+    hub = HubInfo.from_dict(data)
+    assert hub.mac is None
+    assert hub.s3_usb_connected is None
 
 
 def test_parse_not_a_hub() -> None:

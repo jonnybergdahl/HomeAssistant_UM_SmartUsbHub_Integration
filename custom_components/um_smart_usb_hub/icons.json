@@ -59,6 +59,39 @@
       },
       "averaging": {
         "default": "mdi:chart-bell-curve"
+      },
+      "button_press": {
+        "default": "mdi:gesture-tap",
+        "state": {
+          "toggle_ports": "mdi:swap-horizontal",
+          "all_on": "mdi:power-plug-battery",
+          "all_off": "mdi:power-plug-off",
+          "cycle_ports": "mdi:restart",
+          "toggle_leds": "mdi:led-on",
+          "toggle_s3_usb": "mdi:usb"
+        }
+      },
+      "button_double_press": {
+        "default": "mdi:gesture-double-tap",
+        "state": {
+          "toggle_ports": "mdi:swap-horizontal",
+          "all_on": "mdi:power-plug-battery",
+          "all_off": "mdi:power-plug-off",
+          "cycle_ports": "mdi:restart",
+          "toggle_leds": "mdi:led-on",
+          "toggle_s3_usb": "mdi:usb"
+        }
+      },
+      "button_long_press": {
+        "default": "mdi:gesture-tap-hold",
+        "state": {
+          "toggle_ports": "mdi:swap-horizontal",
+          "all_on": "mdi:power-plug-battery",
+          "all_off": "mdi:power-plug-off",
+          "cycle_ports": "mdi:restart",
+          "toggle_leds": "mdi:led-on",
+          "toggle_s3_usb": "mdi:usb"
+        }
       }
     },
     "sensor": {
@@ -112,6 +145,15 @@
       },
       "esphome_api": {
         "default": "mdi:home-assistant"
+      },
+      "s3_usb": {
+        "default": "mdi:usb",
+        "state": {
+          "off": "mdi:usb-flash-drive-outline"
+        }
+      },
+      "s3_usb_disconnect_on_boot": {
+        "default": "mdi:power-plug-off-outline"
       }
     },
     "text": {

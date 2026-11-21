@@ -1,34 +1,35 @@
 {
     "name": "Smart USB Hub",
-    "fw": "2.2.0",
-    "uptime_s": 1291,
+    "fw": "2.3.0",
+    "uptime_s": 46,
     "reset_reason": "USB",
     "power": {
         "main_5v": true,
         "upstream_5v": true,
-        "total_ma": 225.2,
-        "total_mw": 1013.8
+        "total_ma": 0.0,
+        "total_mw": 0.0
     },
     "sensors": {
-        "temp_c": 32.4,
-        "humidity": 21.5,
+        "temp_c": 32.1,
+        "humidity": 14.2,
         "valid": true
     },
     "clock": {
         "synced": true,
-        "iso": "2026-11-12T18:57:51+01:00",
-        "time": "18:57",
-        "date": "Thu 12 Nov 2026",
-        "wday": 4,
-        "secs": 68271,
+        "iso": "2026-11-21T17:32:01+01:00",
+        "time": "17:32",
+        "date": "Sat 21 Nov 2026",
+        "wday": 6,
+        "secs": 63121,
         "utc_offset": 1
     },
     "network": {
         "connected": true,
         "ip": "192.168.1.100",
         "ssid": "MyNetwork",
-        "rssi": -37,
-        "hostname": "usb-hub"
+        "rssi": -53,
+        "hostname": "usb-hub",
+        "mac": "AA:BB:CC:DD:EE:FF"
     },
     "devices": {
         "expander": true,
@@ -36,14 +37,15 @@
         "ina_2": true,
         "aht20": true
     },
+    "s3_usb_connected": true,
     "memory": {
-        "heap_free": 207692,
+        "heap_free": 206584,
         "heap_max_block": 163828
     },
     "ports_summary": {
         "count": 6,
-        "powered": 2,
-        "occupied": 2,
+        "powered": 0,
+        "occupied": 0,
         "faulted": 0
     }
 }

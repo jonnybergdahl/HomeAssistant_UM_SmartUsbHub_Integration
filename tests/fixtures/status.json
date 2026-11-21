@@ -1,6 +1,6 @@
 {
     "name": "Smart USB Hub",
-    "fw": "2.2.0",
+    "fw": "2.3.0",
     "rst": "USB",
     "theme": "dark",
     "ui": {
@@ -23,22 +23,23 @@
     "reverse_order": true,
     "time_24h": true,
     "ip": "192.168.1.100",
-    "uptime_s": 1291,
-    "heap": 207900,
+    "uptime_s": 47,
+    "heap": 206840,
     "maxblk": 163828,
     "main5v": true,
     "upstream5v": true,
+    "s3_usb_connected": true,
     "temp": {
         "valid": true,
-        "c": 32.4,
-        "h": 21.5
+        "c": 32.1,
+        "h": 14.2
     },
     "clock": {
         "synced": true,
-        "time": "18:57",
-        "date": "Thu 12 Nov 2026",
-        "wday": 4,
-        "secs": 68271
+        "time": "17:32",
+        "date": "Sat 21 Nov 2026",
+        "wday": 6,
+        "secs": 63121
     },
     "ports": [
         {
@@ -69,15 +70,15 @@
         },
         {
             "n": 3,
-            "enabled": true,
-            "occupied": true,
+            "enabled": false,
+            "occupied": false,
             "fault": false,
-            "state": "green",
+            "state": "off",
             "name": "",
             "mon": true,
-            "v": 4.648,
-            "ma": 80.8,
-            "mw": 375.6,
+            "v": 0.0,
+            "ma": 0.0,
+            "mw": 0.0,
             "sched": 0
         },
         {
@@ -121,7 +122,7 @@
         }
     ],
     "total": {
-        "ma": 158.4,
-        "mw": 735.6
+        "ma": 0.0,
+        "mw": 0.0
     }
 }

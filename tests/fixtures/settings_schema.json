@@ -31,25 +31,32 @@
         {
           "key": "password",
           "label": "Password",
+          "secret": true,
+          "set": true,
           "type": "string"
         },
         {
-          "help": "Off = use the static address below. DNS goes to the gateway.",
+          "help": "DHCP Off = use the static address below. DNS goes to the gateway.",
           "key": "dhcp",
           "label": "DHCP",
+          "off_label": "DHCP Off",
+          "on_label": "DHCP On",
           "type": "bool"
         },
         {
+          "disabled_by": "dhcp",
           "key": "ip",
           "label": "Static IP",
           "type": "string"
         },
         {
+          "disabled_by": "dhcp",
           "key": "gateway",
           "label": "Gateway",
           "type": "string"
         },
         {
+          "disabled_by": "dhcp",
           "key": "subnet",
           "label": "Subnet mask",
           "type": "string"
@@ -59,7 +66,6 @@
       "name": "wifi",
       "values": {
         "ssid": "MyNetwork",
-        "password": "REDACTED",
         "dhcp": true,
         "ip": "",
         "gateway": "",
@@ -189,6 +195,142 @@
       "name": "esphome",
       "values": {
         "enabled": true
+      }
+    },
+    {
+      "fields": [
+        {
+          "help": "The ESP32-S3 starts disconnected from the hub. Reconnect it with the ESP32-S3 USB button.",
+          "key": "disconnect_on_boot",
+          "label": "Disconnect from hub on boot",
+          "type": "bool"
+        }
+      ],
+      "label": "ESP32-S3 USB",
+      "name": "s3_usb",
+      "values": {
+        "disconnect_on_boot": false
+      }
+    },
+    {
+      "fields": [
+        {
+          "key": "press",
+          "label": "Single press",
+          "options": [
+            {
+              "label": "Do nothing",
+              "value": "none"
+            },
+            {
+              "label": "Toggle power state of each port",
+              "value": "toggle_ports"
+            },
+            {
+              "label": "All ports on",
+              "value": "all_on"
+            },
+            {
+              "label": "All ports off",
+              "value": "all_off"
+            },
+            {
+              "label": "Power-cycle powered ports",
+              "value": "cycle_ports"
+            },
+            {
+              "label": "Turn port LEDs on / off",
+              "value": "toggle_leds"
+            },
+            {
+              "label": "Connect / disconnect S3 USB",
+              "value": "toggle_s3_usb"
+            }
+          ],
+          "type": "select",
+          "unique": true
+        },
+        {
+          "help": "Two presses within 0.3 secs.",
+          "key": "double_press",
+          "label": "Double press",
+          "options": [
+            {
+              "label": "Do nothing",
+              "value": "none"
+            },
+            {
+              "label": "Toggle power state of each port",
+              "value": "toggle_ports"
+            },
+            {
+              "label": "All ports on",
+              "value": "all_on"
+            },
+            {
+              "label": "All ports off",
+              "value": "all_off"
+            },
+            {
+              "label": "Power-cycle powered ports",
+              "value": "cycle_ports"
+            },
+            {
+              "label": "Turn port LEDs on / off",
+              "value": "toggle_leds"
+            },
+            {
+              "label": "Connect / disconnect S3 USB",
+              "value": "toggle_s3_usb"
+            }
+          ],
+          "type": "select",
+          "unique": true
+        },
+        {
+          "help": "Held for 1 second.",
+          "key": "long_press",
+          "label": "Long press",
+          "options": [
+            {
+              "label": "Do nothing",
+              "value": "none"
+            },
+            {
+              "label": "Toggle power state of each port",
+              "value": "toggle_ports"
+            },
+            {
+              "label": "All ports on",
+              "value": "all_on"
+            },
+            {
+              "label": "All ports off",
+              "value": "all_off"
+            },
+            {
+              "label": "Power-cycle powered ports",
+              "value": "cycle_ports"
+            },
+            {
+              "label": "Turn port LEDs on / off",
+              "value": "toggle_leds"
+            },
+            {
+              "label": "Connect / disconnect S3 USB",
+              "value": "toggle_s3_usb"
+            }
+          ],
+          "type": "select",
+          "unique": true
+        }
+      ],
+      "label": "User Button",
+      "name": "button",
+      "values": {
+        "double_press": "none",
+        "long_press": "none",
+        "press": "toggle_ports"
       }
     },
     {

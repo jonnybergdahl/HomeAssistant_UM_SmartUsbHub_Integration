@@ -15,6 +15,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from homeassistant.util import dt as dt_util
 
 from .api import (
+    BUTTON_PRESSES,
     PORT_COUNT,
     HubInfo,
     PortState,
@@ -87,6 +88,10 @@ class UsbHubCoordinator(DataUpdateCoordinator[UsbHubData]):
             )
             settings = self.data.settings if self.data else {}
             schedules = self.data.schedules if self.data else []
+            if self.data is not None and hub.fw != self.data.hub.fw:
+                # New firmware may bring new settings groups (and with them
+                # new entities); read them now rather than on the slow cycle.
+                self._slow_refreshed = None
             now = dt_util.utcnow().timestamp()
             if (
                 self._slow_refreshed is None
@@ -151,6 +156,16 @@ class UsbHubCoordinator(DataUpdateCoordinator[UsbHubData]):
         """Flash a port's LED."""
         await self._call(lambda: self.client.identify(n))
 
+    async def async_set_s3_usb(self, connected: bool) -> None:
+        """Connect or disconnect the hub's ESP32-S3 from its internal USB."""
+        hub = await self._call(lambda: self.client.set_s3_usb(connected))
+        if self.data is not None:
+            self.async_set_updated_data(replace(self.data, hub=hub))
+
+    async def async_reboot(self) -> None:
+        """Restart the hub. Entities go unavailable until it's back."""
+        await self._call(self.client.reboot)
+
     async def async_detect_location(self) -> None:
         """Ask the hub to geolocate itself, then re-read settings."""
         await self._call(self.client.detect_location)
@@ -195,6 +210,30 @@ class UsbHubCoordinator(DataUpdateCoordinator[UsbHubData]):
                 translation_key="setting_not_applied",
                 translation_placeholders={"setting": f"ports.{key}[{n}]"},
             )
+
+    async def async_set_button_action(self, press: str, action: str) -> None:
+        """Set what one kind of user-button press does.
+
+        The hub allows an action (other than "none") on only one kind of
+        press and silently drops a duplicate on the later press. Move the
+        action instead: the press that held it is set to "none" in the same
+        write.
+        """
+        async with self.write_lock:
+            settings = await self._call(self.client.get_settings)
+            current = settings.get("button", {})
+            update: dict[str, str] = {press: action}
+            if action != "none":
+                update.update(
+                    {
+                        other: "none"
+                        for other in BUTTON_PRESSES
+                        if other != press and current.get(other) == action
+                    }
+                )
+            await self._call(lambda: self.client.post_settings({"button": update}))
+            await self.async_refresh_settings()
+        self._verify_setting("button", press, action)
 
     def _verify_setting(self, group: str, key: str, value: Any) -> None:
         stored = self.data.settings.get(group, {}).get(key)

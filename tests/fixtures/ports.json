@@ -34,15 +34,15 @@
         },
         {
             "n": 3,
-            "enabled": true,
-            "occupied": true,
+            "enabled": false,
+            "occupied": false,
             "fault": false,
-            "state": "green",
+            "state": "off",
             "name": "",
             "monitor": true,
-            "volts": 4.632,
-            "ma": 81.2,
-            "mw": 376.1,
+            "volts": 0.0,
+            "ma": 0.0,
+            "mw": 0.0,
             "schedule": {
                 "count": 0,
                 "next": null

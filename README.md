@@ -11,6 +11,10 @@ on-hub schedules.
 - Found automatically on your network (zeroconf), or added by host name/IP
 - One device for the hub, plus one sub-device per port, named after the port's
   name on the hub
+- Hub firmware 2.3.0 or newer is recommended. Discovery, the ESP32-S3 USB switch,
+  the Reboot button and the user button settings need it. Older firmware works
+  with everything else. After a firmware upgrade the new entities appear on the
+  next poll, without reloading the integration.
 
 ![The integration page with the hub and its six port devices](docs/images/integration.png)
 
@@ -45,7 +49,7 @@ No restart is needed. Home Assistant goes straight to the setup flow described b
 
 The hub is discovered automatically and shows up under **Settings** > **Devices & services** as a discovered device. Select **Add** to set it up.
 
-> Discovery relies on the hub's firmware advertising `vendor` and `model` mDNS TXT records. With older firmware, only hubs that still use the default host name `usb-hub` are discovered; set the others up as below.
+> Discovery needs hub firmware 2.3.0 or newer. With older firmware, set the hub up as below.
 
 Otherwise, click the button to add a UM Smart USB Hub to Home Assistant.
 
@@ -73,6 +77,10 @@ You can also set it up manually:
 | Port fault | On when any port has tripped its over-current protection |
 | All ports on / All ports off | Buttons |
 | LEDs, LED brightness | Config |
+| ESP32-S3 USB | Config, firmware 2.3.0+. Off disconnects the hub's own ESP32-S3 from its internal USB, so a firmware upload meant for a device on a port can't flash the hub by mistake. The ports aren't affected |
+| Disconnect ESP32-S3 USB on boot | Config, firmware 2.3.0+. Start the hub with the ESP32-S3 disconnected |
+| User button single / double / long press | Config, firmware 2.3.0+. What each kind of press does. Choosing an action another press already has moves it, and that press is set to Do nothing |
+| Restart | Config, firmware 2.3.0+. Reboots the hub; it's back after a few seconds |
 | Last restart, Reset reason, Clock synced, Hardware problem | Diagnostic |
 | WiFi signal, IP address, SSID, Free memory | Diagnostic, disabled by default |
 | UTC offset, Measurement averaging, Detect location, ESPHome API | Config, disabled by default |
@@ -183,17 +191,16 @@ you'll see the same ports twice. Once you've moved your automations to this
 integration you can turn the ESPHome API off. Use the hub's web page, or enable the
 **ESPHome API** switch (disabled by default) and turn it off.
 
-The two integrations create separate devices. When the hub's firmware reports
-its MAC address (`network.mac` in `/api/hub`), this integration adds it to its hub
-device. Current Home Assistant versions (tested on 2026.11) don't merge devices
+The two integrations create separate devices. With hub firmware 2.3.0 or newer,
+this integration adds the hub's MAC address to its hub device. Current Home Assistant versions (tested on 2026.11) don't merge devices
 from different integrations on a shared MAC, so the ESPHome device stays separate.
 
 ## Security
 
 The hub's API has no authentication. Anything on your network can switch ports
-or change settings, so keep the hub on a network you trust. The integration never
-reads or stores the WiFi password (which the hub's settings endpoint returns),
-and the diagnostics download redacts addresses and names.
+or change settings, so keep the hub on a network you trust. Hub firmware before
+2.3.0 returns the WiFi password from its settings endpoint; the integration never
+stores or logs it. The diagnostics download redacts addresses and names.
 
 ## Development
 
@@ -203,4 +210,4 @@ uv venv --python 3.14 && uv pip install -r requirements_test.txt
 .venv/bin/ruff check . && .venv/bin/ruff format --check .
 ```
 
-The test fixtures in `tests/fixtures` were captured from a hub running firmware 2.2.0.
+The test fixtures in `tests/fixtures` were captured from a hub running firmware 2.3.0.

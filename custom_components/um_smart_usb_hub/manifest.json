@@ -17,10 +17,6 @@
         "vendor": "unexpectedmaker",
         "model": "smart-usb-hub"
       }
-    },
-    {
-      "type": "_http._tcp.local.",
-      "name": "usb-hub*"
     }
   ]
 }

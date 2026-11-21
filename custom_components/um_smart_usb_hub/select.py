@@ -7,10 +7,10 @@ from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from .api import PORT_COUNT, POWER_MODES
+from .api import BUTTON_ACTIONS, BUTTON_PRESSES, PORT_COUNT, POWER_MODES
 from .const import AVERAGING_OPTIONS
 from .coordinator import UsbHubConfigEntry, UsbHubCoordinator
-from .entity import UsbHubEntity, UsbHubPortEntity
+from .entity import UsbHubEntity, UsbHubPortEntity, async_add_feature_entities
 
 PARALLEL_UPDATES = 1
 
@@ -25,6 +25,54 @@ async def async_setup_entry(
     entities: list[SelectEntity] = [AveragingSelect(coordinator)]
     entities.extend(PowerModeSelect(coordinator, n) for n in range(1, PORT_COUNT + 1))
     async_add_entities(entities)
+    # User button actions: firmware 2.3.0+ has a "button" settings group.
+    async_add_feature_entities(
+        entry,
+        async_add_entities,
+        [
+            (
+                f"button_{press}",
+                lambda data: "button" in data.settings,
+                # Bind press now; the factory runs later.
+                lambda press=press: ButtonActionSelect(coordinator, press),
+            )
+            for press in BUTTON_PRESSES
+        ],
+    )
+
+
+class ButtonActionSelect(UsbHubEntity, SelectEntity):
+    """What a single, double or long press on the hub's user button does.
+
+    An action can be set on only one kind of press; choosing one that another
+    press already has moves it here and sets the other press to "none".
+    """
+
+    _attr_entity_category = EntityCategory.CONFIG
+    _attr_options = list(BUTTON_ACTIONS)
+
+    def __init__(self, coordinator: UsbHubCoordinator, press: str) -> None:
+        """Initialise the select."""
+        super().__init__(coordinator, f"button_{press}")
+        self._press = press
+        self._attr_translation_key = f"button_{press}"
+
+    @property
+    def available(self) -> bool:
+        """Available while the hub reports the setting."""
+        return super().available and self._press in self.coordinator.data.settings.get(
+            "button", {}
+        )
+
+    @property
+    def current_option(self) -> str | None:
+        """Return the action for this kind of press."""
+        value = self.coordinator.data.settings.get("button", {}).get(self._press)
+        return value if value in BUTTON_ACTIONS else None
+
+    async def async_select_option(self, option: str) -> None:
+        """Change the action for this kind of press."""
+        await self.coordinator.async_set_button_action(self._press, option)
 
 
 class PowerModeSelect(UsbHubPortEntity, SelectEntity):

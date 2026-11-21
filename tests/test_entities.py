@@ -55,7 +55,7 @@ async def test_devices(
     }
     assert len(devices) == 7
     hub = devices["usb-hub"]
-    assert hub.sw_version == "2.2.0"
+    assert hub.sw_version == "2.3.0"
     assert hub.manufacturer == "Unexpected Maker"
     for n in range(1, 7):
         port = devices[f"usb-hub_port{n}"]
@@ -79,7 +79,7 @@ async def test_states(hass: HomeAssistant, setup_integration: MockConfigEntry) -
     # mW reported, shown in W
     assert float(hass.states.get("sensor.smart_usb_hub_port_1_power").state) == 0.3601
     assert hass.states.get("sensor.smart_usb_hub_port_1_led_state").state == "green"
-    assert float(hass.states.get("sensor.smart_usb_hub_temperature").state) == 32.4
+    assert float(hass.states.get("sensor.smart_usb_hub_temperature").state) == 32.1
     assert hass.states.get("sensor.smart_usb_hub_reset_reason").state == "usb"
     assert hass.states.get("binary_sensor.smart_usb_hub_main_5v").state == STATE_ON
     assert (

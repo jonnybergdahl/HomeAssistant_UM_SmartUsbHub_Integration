@@ -30,6 +30,20 @@ _INT_TO_MODE: dict[int, str] = {0: "on", 1: "on_for", 2: "on_until", 3: "on_ever
 WEEKDAYS = ("sun", "mon", "tue", "wed", "thu", "fri", "sat")
 
 POWER_MODES = ("manual", "boot", "connect")
+# User button (firmware 2.3.0+): settings group "button", one key per kind of
+# press, each holding one action. An action other than "none" can be set on
+# only one kind of press.
+BUTTON_PRESSES = ("press", "double_press", "long_press")
+BUTTON_ACTIONS = (
+    "none",
+    "toggle_ports",
+    "all_on",
+    "all_off",
+    "cycle_ports",
+    "toggle_leds",
+    "toggle_s3_usb",
+)
+
 PORT_STATES = ("off", "blue", "green", "pulse", "pink", "pinkpulse", "fault")
 
 
@@ -157,6 +171,8 @@ class HubInfo:
     ports_occupied: int
     ports_faulted: int
     mac: str | None = None
+    # None on firmware before 2.3.0, which can't switch the ESP32-S3's USB.
+    s3_usb_connected: bool | None = None
     raw: dict[str, Any] = field(default_factory=dict, repr=False)
 
     @classmethod
@@ -198,6 +214,9 @@ class HubInfo:
             ports_occupied=int(summary.get("occupied", 0)),
             ports_faulted=int(summary.get("faulted", 0)),
             mac=str(mac).lower() if mac else None,
+            s3_usb_connected=(
+                bool(data["s3_usb_connected"]) if "s3_usb_connected" in data else None
+            ),
             raw=data,
         )
 
@@ -387,6 +406,17 @@ class UsbHubClient:
         """POST /api/hub/ports; returns all ports as read back by the hub."""
         data = await self._request("POST", "/hub/ports", params={"on": 1 if on else 0})
         return _parse_ports(data)
+
+    async def set_s3_usb(self, connected: bool) -> HubInfo:
+        """POST /api/hub/usbs3 (firmware 2.3.0+); returns the hub as read back."""
+        data = await self._request(
+            "POST", "/hub/usbs3", params={"on": 1 if connected else 0}
+        )
+        return HubInfo.from_dict(data)
+
+    async def reboot(self) -> None:
+        """POST /api/hub/reboot (firmware 2.3.0+). The hub restarts ~0.5 s later."""
+        await self._request("POST", "/hub/reboot")
 
     async def identify(self, n: int) -> None:
         """POST /api/identify: flash a port's LED."""

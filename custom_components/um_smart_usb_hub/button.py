@@ -17,7 +17,7 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from .api import PORT_COUNT
 from .const import DEFAULT_POWER_CYCLE_OFF_TIME
 from .coordinator import UsbHubConfigEntry, UsbHubCoordinator
-from .entity import UsbHubEntity, UsbHubPortEntity
+from .entity import UsbHubEntity, UsbHubPortEntity, async_add_feature_entities
 
 PARALLEL_UPDATES = 0
 
@@ -56,6 +56,13 @@ HUB_BUTTONS: tuple[HubButtonDescription, ...] = (
     ),
 )
 
+REBOOT_BUTTON = HubButtonDescription(
+    key="reboot",
+    device_class=ButtonDeviceClass.RESTART,
+    entity_category=EntityCategory.CONFIG,
+    press_fn=lambda c: c.async_reboot(),
+)
+
 PORT_BUTTONS: tuple[PortButtonDescription, ...] = (
     PortButtonDescription(
         key="identify",
@@ -82,6 +89,19 @@ async def async_setup_entry(
     for n in range(1, PORT_COUNT + 1):
         entities.extend(PortButton(coordinator, n, d) for d in PORT_BUTTONS)
     async_add_entities(entities)
+    # The reboot endpoint came with firmware 2.3.0, as did s3_usb_connected;
+    # probing the endpoint itself would reboot the hub.
+    async_add_feature_entities(
+        entry,
+        async_add_entities,
+        [
+            (
+                "reboot",
+                lambda data: data.hub.s3_usb_connected is not None,
+                lambda: HubButton(coordinator, REBOOT_BUTTON),
+            )
+        ],
+    )
 
 
 class HubButton(UsbHubEntity, ButtonEntity):

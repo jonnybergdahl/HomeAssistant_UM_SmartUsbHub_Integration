@@ -2,16 +2,57 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable, Iterable
+
+from homeassistant.core import callback
 from homeassistant.helpers.device_registry import (
     CONNECTION_NETWORK_MAC,
     DeviceInfo,
     format_mac,
 )
+from homeassistant.helpers.entity import Entity
+from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .api import PortState
 from .const import DOMAIN, MANUFACTURER, MODEL
-from .coordinator import UsbHubCoordinator
+from .coordinator import UsbHubConfigEntry, UsbHubCoordinator, UsbHubData
+
+# (key, supported by the hub's firmware?, entity factory)
+type Feature = tuple[str, Callable[[UsbHubData], bool], Callable[[], Entity]]
+
+
+@callback
+def async_add_feature_entities(
+    entry: UsbHubConfigEntry,
+    async_add_entities: AddConfigEntryEntitiesCallback,
+    features: Iterable[Feature],
+) -> None:
+    """Add entities for firmware features, now or once the hub reports them.
+
+    Checked at setup and after every coordinator update, so a hub that gets
+    a firmware upgrade while Home Assistant runs gains the new entities
+    without a reload. An entity is added once; if a later downgrade drops the
+    feature, it stays and goes unavailable.
+    """
+    coordinator = entry.runtime_data
+    pending = list(features)
+
+    @callback
+    def _add_supported() -> None:
+        data = coordinator.data
+        if data is None or not pending:
+            return
+        ready = [feature for feature in pending if feature[1](data)]
+        if not ready:
+            return
+        for feature in ready:
+            pending.remove(feature)
+        async_add_entities([factory() for _key, _supported, factory in ready])
+
+    _add_supported()
+    if pending:
+        entry.async_on_unload(coordinator.async_add_listener(_add_supported))
 
 
 def hub_device_info(coordinator: UsbHubCoordinator) -> DeviceInfo:
