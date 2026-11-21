@@ -62,7 +62,7 @@ You can also set it up manually:
 3. Enter the hub's host name or IP address (e.g. `usb-hub.local` or `192.168.1.50`). Use the IP address if Home Assistant can't resolve `.local` names.
 4. Click **Submit**
 
-> To change the polling interval (default 5 seconds), open the integration's **Configure** action. Settings and schedules are re-read every 5 minutes, and right after every change made from Home Assistant. If the hub's address changes, use **Reconfigure**.
+> To change the polling interval (default 5 seconds), open the integration's **Configure** action. Settings and schedules are re-read every 5 minutes, and right after every change made from Home Assistant. A setting or schedule changed on the hub's own web page therefore shows up in Home Assistant within 5 minutes; port states and readings follow the polling interval. If the hub's address changes, use **Reconfigure**.
 
 ## Entities
 
